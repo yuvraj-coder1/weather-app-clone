@@ -24,10 +24,15 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Air
+import androidx.compose.material.icons.filled.ArrowDownward
 import androidx.compose.material.icons.filled.Cloud
 import androidx.compose.material.icons.filled.LightMode
+import androidx.compose.material.icons.filled.RemoveRedEye
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Thermostat
+import androidx.compose.material.icons.filled.WaterDrop
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
@@ -139,8 +144,8 @@ fun WeatherAppLayout() {
         }
         WeatherStatusLater(modifier = Modifier)
         WeeklyWeatherReport()
-        AirQuality()
-        precisedWeatherDetail()
+//        AirQuality()
+//        precisedWeatherDetail()
     }
 }
 @Composable
@@ -149,16 +154,16 @@ fun precisedWeatherDetail() {
         Row(
             modifier = Modifier.fillMaxWidth()
         ) {
-            WeatherSpecification(parameterIcon = Icons.Filled.LightMode, condition = "UV", magnitude = "6 Moderate" )
-            WeatherSpecification(parameterIcon = Icons.Filled.LightMode, condition = "UV", magnitude = "6 Moderate" )
-            WeatherSpecification(parameterIcon = Icons.Filled.LightMode, condition = "UV", magnitude = "6 Moderate" )
+            WeatherSpecification(parameterIcon = Icons.Filled.LightMode, condition = "UV", magnitude = "6 Moderate",modifier = Modifier.weight(1f) )
+            WeatherSpecification(parameterIcon = Icons.Filled.Thermostat, condition = "Feels Like", magnitude = "35°",modifier = Modifier.weight(1f) )
+            WeatherSpecification(parameterIcon = Icons.Filled.WaterDrop, condition = "Humidity", magnitude = "35%",modifier = Modifier.weight(1f) )
         }
         Row(
             modifier = Modifier.fillMaxWidth()
         ) {
-            WeatherSpecification(parameterIcon = Icons.Filled.LightMode, condition = "UV", magnitude = "6 Moderate" )
-            WeatherSpecification(parameterIcon = Icons.Filled.LightMode, condition = "UV", magnitude = "6 Moderate" )
-            WeatherSpecification(parameterIcon = Icons.Filled.LightMode, condition = "UV", magnitude = "6 Moderate" )
+            WeatherSpecification(parameterIcon = Icons.Filled.Air, condition = "ESE Wind", magnitude = "8kmh",modifier = Modifier.weight(1f) )
+            WeatherSpecification(parameterIcon = Icons.Filled.ArrowDownward, condition = "Air Pressure", magnitude = "1009hPa" ,modifier = Modifier.weight(1f))
+            WeatherSpecification(parameterIcon = Icons.Filled.RemoveRedEye, condition = "Visibility", magnitude = "8 km" ,modifier = Modifier.weight(1f))
         }
     }
 }
@@ -229,8 +234,13 @@ fun WeeklyWeatherReport() {
             modifier = Modifier.weight(1f),
             IconColour = Color.Yellow
         )
-        Button(onClick = { /*TODO*/ }) {
-            Text("15-day weather forecast")
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Button(onClick = { /*TODO*/ }) {
+                Text("15-day weather forecast")
+            }
         }
     }
 }
@@ -336,12 +346,11 @@ fun WeatherForecast(
 }
 
 @Composable
-fun WeatherSpecification(parameterIcon:ImageVector,condition:String,magnitude:String) {
+fun WeatherSpecification(parameterIcon:ImageVector,condition:String,magnitude:String,modifier:Modifier) {
         Card(
-            modifier = Modifier
+            modifier = modifier
                 .padding(10.dp)
                 .border(1.dp, Color.Black, shape = RoundedCornerShape(15.dp))
-
         ) {
             Column(
                 modifier = Modifier.padding(12.dp),
