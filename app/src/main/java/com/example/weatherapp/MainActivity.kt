@@ -29,7 +29,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -51,7 +54,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    WeatherAppScreen(modifier = Modifier.fillMaxWidth().background(Color.Blue))
+                    WeatherAppScreen(modifier = Modifier)
                 }
             }
         }
@@ -61,15 +64,26 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun WeatherAppScreen(modifier: Modifier) {
 
-    Box(modifier = modifier) {
-        Scaffold(
-            topBar = { WeatherAppTopBar() },
+    Box(
+        modifier = Modifier.fillMaxSize(),
+    ) {
+        Image(
+
+            painter = painterResource(id = R.drawable.weather_image ),
+            contentScale = ContentScale.FillBounds,
+            contentDescription = "Background Image",
             modifier = Modifier.fillMaxSize()
-                .background(Color.Blue)
-        ) {
-            Box(modifier = Modifier.fillMaxSize().padding(top = 100.dp)) {
-                WeatherAppLayout()
-            }
+                .alpha(0.6f),
+
+        )
+        Column(modifier = modifier) {
+            WeatherAppTopBar()
+                Box(modifier = Modifier
+                    .fillMaxSize()
+                    .padding(top = 100.dp)) {
+                    WeatherAppLayout()
+                }
+
         }
     }
 }
@@ -77,7 +91,9 @@ fun WeatherAppScreen(modifier: Modifier) {
 @Composable
 fun WeatherAppTopBar() {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(5.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(5.dp)
     ) {
         Text(text = stringResource(R.string.bommanahalli))
 
@@ -90,7 +106,7 @@ fun WeatherAppLayout() {
 
     Column {
         CurrentWeatherStatus()
-        Card(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(5.dp)
