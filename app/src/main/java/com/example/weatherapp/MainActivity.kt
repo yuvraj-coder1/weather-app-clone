@@ -4,11 +4,9 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,7 +17,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -29,7 +26,6 @@ import androidx.compose.material.icons.filled.ArrowDownward
 import androidx.compose.material.icons.filled.Cloud
 import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material.icons.filled.RemoveRedEye
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Thermostat
 import androidx.compose.material.icons.filled.WaterDrop
@@ -37,7 +33,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -45,7 +40,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -84,7 +78,6 @@ fun WeatherAppScreen(modifier: Modifier) {
         modifier = Modifier.fillMaxSize(),
     ) {
         Image(
-
             painter = painterResource(id = R.drawable.weather_image),
             contentScale = ContentScale.FillBounds,
             contentDescription = "Background Image",
@@ -93,7 +86,7 @@ fun WeatherAppScreen(modifier: Modifier) {
                 .alpha(0.6f),
 
             )
-            Column(modifier = modifier) {
+            Column(modifier = modifier.verticalScroll(rememberScrollState())) {
             WeatherAppTopBar()
             Box(
                 modifier = Modifier
@@ -120,10 +113,9 @@ fun WeatherAppTopBar() {
 }
 
 @Composable
-
 fun WeatherAppLayout() {
 
-    Column {
+    Column() {
         CurrentWeatherStatus()
         Box(
             modifier = Modifier
@@ -144,8 +136,8 @@ fun WeatherAppLayout() {
         }
         WeatherStatusLater(modifier = Modifier)
         WeeklyWeatherReport()
-//        AirQuality()
-//        precisedWeatherDetail()
+        AirQuality()
+        precisedWeatherDetail()
     }
 }
 @Composable
@@ -170,76 +162,81 @@ fun precisedWeatherDetail() {
 
 @Composable
 fun WeeklyWeatherReport() {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(10.dp)
-            .border(1.dp, Color.Black, shape = RoundedCornerShape(15.dp))
-            .padding(15.dp)
-    ) {
-        WeatherForecast(
-            date = "4:19",
-            day = "Today",
-            Weather = Icons.Filled.Cloud,
-            temperaturRange = "24°/35°",
-            modifier = Modifier.weight(1f),
-            IconColour = Color.LightGray
+    Box(
 
-        )
-        WeatherForecast(
-            date = "4:19",
-            day = "Tomorrow",
-            Weather = Icons.Filled.Cloud,
-            temperaturRange = "24°/35°",
-            modifier = Modifier.weight(1f),
-            IconColour = Color.LightGray
-        )
-        WeatherForecast(
-            date = "4:19",
-            day = "sun",
-            Weather = Icons.Filled.Cloud,
-            temperaturRange = "24°/35°",
-            modifier = Modifier.weight(1f),
-            IconColour = Color.LightGray
-        )
-        WeatherForecast(
-            date = "4:19",
-            day = "mon",
-            Weather = Icons.Filled.Cloud,
-            temperaturRange = "24°/35°",
-            modifier = Modifier.weight(1f),
-            IconColour = Color.LightGray
-        )
-        WeatherForecast(
-            date = "4:19",
-            day = "tue",
-            Weather = Icons.Filled.LightMode,
-            temperaturRange = "24°/35°",
-            modifier = Modifier.weight(1f),
-            IconColour = Color.Yellow
-        )
-        WeatherForecast(
-            date = "4:19",
-            day = "Wed",
-            Weather = Icons.Filled.Cloud,
-            temperaturRange = "24°/35°",
-            modifier = Modifier.weight(1f),
-            IconColour = Color.LightGray
-        )
-        WeatherForecast(
-            date = "4:19",
-            day = "Thu",
-            Weather = Icons.Filled.LightMode,
-            temperaturRange = "24°/35°",
-            modifier = Modifier.weight(1f),
-            IconColour = Color.Yellow
-        )
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp)
+                .border(1.dp, Color.Black, shape = RoundedCornerShape(15.dp))
+                .padding(15.dp)
+
         ) {
-            Button(onClick = { /*TODO*/ }) {
-                Text("15-day weather forecast")
+            WeatherForecast(
+                date = "4:19",
+                day = "Today",
+                Weather = Icons.Filled.Cloud,
+                temperaturRange = "24°/35°",
+                modifier = Modifier.weight(1f),
+                IconColour = Color.LightGray
+
+            )
+            WeatherForecast(
+                date = "4:20",
+                day = "Tomorrow",
+                Weather = Icons.Filled.Cloud,
+                temperaturRange = "24°/35°",
+                modifier = Modifier.weight(1f),
+                IconColour = Color.LightGray
+            )
+            WeatherForecast(
+                date = "4:20",
+                day = "sun",
+                Weather = Icons.Filled.Cloud,
+                temperaturRange = "24°/35°",
+                modifier = Modifier.weight(1f),
+                IconColour = Color.LightGray
+            )
+            WeatherForecast(
+                date = "4:20",
+                day = "mon",
+                Weather = Icons.Filled.Cloud,
+                temperaturRange = "24°/35°",
+                modifier = Modifier.weight(1f),
+                IconColour = Color.LightGray
+            )
+            WeatherForecast(
+                date = "4:19",
+                day = "tue",
+                Weather = Icons.Filled.LightMode,
+                temperaturRange = "24°/35°",
+                modifier = Modifier.weight(1f),
+                IconColour = Color.Yellow
+            )
+            WeatherForecast(
+                date = "4:19",
+                day = "Wed",
+                Weather = Icons.Filled.Cloud,
+                temperaturRange = "24°/35°",
+                modifier = Modifier.weight(1f),
+                IconColour = Color.LightGray
+            )
+            WeatherForecast(
+                date = "4:19",
+                day = "Thu",
+                Weather = Icons.Filled.LightMode,
+                temperaturRange = "24°/35°",
+                modifier = Modifier.weight(1f),
+                IconColour = Color.Yellow
+            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Button(onClick = { /*TODO*/ }) {
+                    Text("15-day weather forecast")
+                }
             }
         }
     }
@@ -335,13 +332,22 @@ fun WeatherForecast(
     modifier: Modifier,
     IconColour:Color
 ) {
-    Row(
-        modifier = modifier.fillMaxWidth()
+    Box(
+        modifier = Modifier.padding(bottom = 10.dp)
     ) {
-        Text(text = date, modifier.weight(1f))
-        Text(text = day, modifier.weight(1f))
-        Icon(imageVector = Weather, contentDescription = null, modifier.weight(1f),tint = IconColour)
-        Text(text = temperaturRange, modifier.weight(1f))
+        Row(
+            modifier = modifier.fillMaxWidth()
+        ) {
+            Text(text = date, modifier.weight(1f))
+            Text(text = day, modifier.weight(1f))
+            Icon(
+                imageVector = Weather,
+                contentDescription = null,
+                modifier.weight(1f),
+                tint = IconColour
+            )
+            Text(text = temperaturRange, modifier.weight(1f))
+        }
     }
 }
 
@@ -362,8 +368,8 @@ fun WeatherSpecification(parameterIcon:ImageVector,condition:String,magnitude:St
                     modifier = Modifier.size(28.dp) // Set the size of the icon
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                Text(condition)
-                Text(magnitude)
+                Text(condition,style = TextStyle(fontSize = 10.sp))
+                Text(magnitude, style = TextStyle(fontSize = 15.sp))
 
             }
 
